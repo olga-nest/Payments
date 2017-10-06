@@ -9,9 +9,9 @@ int main(int argc, const char * argv[]) {
 
         
             
-        NSInteger randomDollarValue = arc4random_uniform(1000) + 100;
+        int randomDollarValue = arc4random_uniform(1000) + 100;
             
-        NSLog(@"Thank you for shopping at Acme.com \n Your total today is %ld. \n Please select your payment method: \n 1: Paypal, 2: Stripe, 3: Amazon", (long)randomDollarValue);
+        NSLog(@"Thank you for shopping at Acme.com \n Your total today is $%ld. \n Please select your payment method: \n 1: Paypal, 2: Stripe, 3: Amazon", (long)randomDollarValue);
         
         
         char answerCString[255];
@@ -46,7 +46,7 @@ int main(int argc, const char * argv[]) {
                 break;
         }
         
-        [paymentGatewayObj processPaymentAmountClassMethod:&randomDollarValue];
+        [paymentGatewayObj processPaymentAmountClassMethod:(long)randomDollarValue];
 
         
     
