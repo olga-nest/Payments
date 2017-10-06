@@ -1,13 +1,17 @@
 #import <Foundation/Foundation.h>
+#import "PaymentGateway.h"
+#import "PaypalPaymentService.h"
+#import "StripePaymentService.h"
+#import "AmazonPaymentService.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
 
         
             
-        int randomDollarValue = arc4random_uniform(1000) + 100;
+        NSInteger randomDollarValue = arc4random_uniform(1000) + 100;
             
-        NSLog(@"Thank you for shopping at Acme.com \n Your total today is %d. \n Please select your payment method: \n 1: Paypal, 2: Stripe, 3: Amazon", randomDollarValue);
+        NSLog(@"Thank you for shopping at Acme.com \n Your total today is %ld. \n Please select your payment method: \n 1: Paypal, 2: Stripe, 3: Amazon", (long)randomDollarValue);
         
         
         char answerCString[255];
@@ -22,15 +26,30 @@ int main(int argc, const char * argv[]) {
         
         NSLog(@"Input was %li", (long)choice);
         
+        PaymentGateway *paymentGatewayObj = [PaymentGateway new];
         
+        PaypalPaymentService *paypal = [PaypalPaymentService new];
+        StripePaymentService *stripe = [StripePaymentService new];
+        AmazonPaymentService *amazon = [AmazonPaymentService new];
         
+        switch (choice) {
+            case 1: {
+                paymentGatewayObj.delegate = paypal; }
+                break;
+            case 2: {
+                paymentGatewayObj.delegate = stripe; }
+                break;
+            case 3: {
+                paymentGatewayObj.delegate = amazon;}
+                break;
+            default:
+                break;
+        }
         
+        [paymentGatewayObj processPaymentAmountClassMethod:&randomDollarValue];
+
         
-        
-        
-        
-        
-        
+    
     }
     return 0;
 }
