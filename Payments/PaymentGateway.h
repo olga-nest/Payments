@@ -1,13 +1,15 @@
-//
-//  PaymentGateway.h
-//  Payments
-//
-//  Created by Olga on 10/6/17.
-//  Copyright © 2017 Olga. All rights reserved.
-//
-
 #import <Foundation/Foundation.h>
 
+@protocol PaymentDelegate <NSObject>
+
+-(void)processPaymentAmount:(NSInteger *)amount;
+
+@end
+
 @interface PaymentGateway : NSObject
+
+@property (nonatomic, weak) id <PaymentDelegate>delegate;
+
+-(void)processPaymentAmountClassMethod:(NSInteger *)amountInDollars;
 
 @end
